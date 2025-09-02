@@ -1,5 +1,6 @@
 import mysql from 'mysql'
 import colors from 'colors'
+
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -12,3 +13,5 @@ connection.connect((error) => {
     }
     console.log('Base de datos conectada exitosamente'.bgGreen);
 })
+
+export default connection
