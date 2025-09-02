@@ -1,4 +1,4 @@
-import { getGuessIndexService, getGuessCarService } from "../Services/guessServices.js";
+import { getGuessIndexService, getGuessCarService, getDealerIndexService } from "../Services/guessServices.js";
 
 export const getGuessIndexController = async(req, res) => {
 try {
@@ -28,3 +28,12 @@ export const getGuessCarController = async(req, res) => {
 }
 
 
+export const getDealerIndexController = async(req, res) => {
+    try {
+        const data = await getDealerIndexService()
+        return res.status(200).json(data)
+        
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+}

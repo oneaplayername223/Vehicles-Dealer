@@ -38,3 +38,22 @@ export const getGuessCarService = (id) => {
         }
     })
 }
+
+
+export const getDealerIndexService = () => {
+    return new Promise((resolve, reject) =>{
+        try {
+            const query = 'SELECT * FROM dealers'
+            connection.query(query, (err, res) => {
+                if (err) {
+                   return reject(err)
+                }
+               return resolve(res)
+            })
+            
+        } catch (error) {
+            return res.status(500).json(error)
+            
+        }
+    })
+}
