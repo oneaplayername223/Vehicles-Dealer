@@ -1,5 +1,4 @@
 import express from 'express'
-import colors from 'colors'
 import guessRoutes from './Routes/guessRoutes.js'
 
 const app = express()
