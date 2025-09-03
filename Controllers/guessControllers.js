@@ -1,5 +1,6 @@
-import { getGuessIndexService, getGuessCarService, getDealerIndexService, getDealerService } from "../Services/guessServices.js";
-
+import { getGuessIndexService, getGuessCarService, getDealerIndexService, getDealerService, registerService } from "../Services/guessServices.js";
+import registerSchema from "../Schemas/registerSchema.js";
+import bcrypt from 'bcrypt'
 export const getGuessIndexController = async(req, res) => {
 try {
     const data = await getGuessIndexService()
@@ -48,11 +49,30 @@ export const getDealerController = async(req, res) => {
         if (!result) {
             return res.status(404).json({ message: 'Dealer no encontrado' })
         }
-        
+
         return res.json(data)
         
     } catch (error) {
         return console.log(error)
         
+    }
+}
+
+export const postRegisterController = async(req, res) => {
+    try {
+        const {nombre, apellido, fecha_nacimiento, cedula, correo, usuario, clave} = req.body
+
+        const { error } = registerSchema({nombre, apellido, fecha_nacimiento, cedula, correo, usuario, clave})
+        
+        if (error) {
+            return res.status(400).json(error)
+        }
+
+        const hashedPassword = bcrypt.hashSync(clave, 10)
+        const data = await registerService(nombre, apellido, fecha_nacimiento, cedula, correo, usuario, hashedPassword)
+        return res.status(200).json(data)
+
+    } catch (error) {
+        return res.json(error)
     }
 }
