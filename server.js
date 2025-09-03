@@ -1,9 +1,11 @@
 import express from 'express'
 import guessRoutes from './Routes/guessRoutes.js'
+import cookieparser from 'cookie-parser'
 
 const app = express()
 const port = 5000
 app.use(express.json())
+app.use(cookieparser())
 
 app.use(guessRoutes)
 
