@@ -70,3 +70,22 @@ export const postDeleteCarService = (id, id_cuenta) => {
         }
     })
 }
+
+export const postEditCarService = (marca, modelo, creado, color, categoria, traccion, pasajeros, descripcion, precio, imagenes, videos, id, id_cuenta) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const query = 'UPDATE vehiculos SET marca = ?, modelo = ?, creado_en = ?, color = ?, categoria = ?, traccion = ?, pasajeros = ?, descripcion = ?, precio = ?, imagenes = ?, videos = ? WHERE id = ? AND id_cuenta = ?'
+            connection.query(query, [marca, modelo, creado, color, categoria, traccion, pasajeros, descripcion, precio, imagenes, videos, id, id_cuenta], (err, res) => {
+                if (err) {
+                   return reject(err)
+                }
+               return resolve(res)
+            })
+            
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json(error)
+            
+        }
+    })
+}
