@@ -2,6 +2,7 @@ import { getGuessIndexService, getGuessCarService, getDealerIndexService, getDea
 import registerSchema from "../Schemas/registerSchema.js";
 import loginSchema from "../Schemas/loginSchema.js";
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 export const getGuessIndexController = async(req, res) => {
 try {
     const data = await getGuessIndexService()
@@ -99,7 +100,12 @@ export const postLoginController = async (req, res) => {
     const comparePassword = bcrypt.compareSync(clave, result.clave)
 
     if (comparePassword) {
-    return res.status(200).json({ message: 'Inicio de sesión exitoso' })
+    const tokent = jwt.sign({ id: result.id }, 'clave-secreta', { expiresIn: '1h' })
+    const cookie = res.cookie('token', tokent, { httpOnly: true })
+    return res.status(200).json({ message: 'Inicio de sesión exitoso'})
+
+
+
     
 
 }
