@@ -57,3 +57,21 @@ export const getDealerIndexService = () => {
         }
     })
 }
+
+export const getDealerService = (id) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const query = 'SELECT * FROM dealers WHERE id = ?'
+            connection.query(query, [id], (err, res) => {
+                if (err) {
+                   return reject(err)
+                }
+               return resolve(res)
+            })
+            
+        } catch (error) {
+            return res.status(500).json(error)
+            
+        }
+    })
+}
