@@ -53,3 +53,20 @@ export const postviewCarByIdService = (id) => {
         }
     })
 }
+
+export const postDeleteCarService = (id, id_cuenta) => {
+    return new Promise((resolve, reject) => {
+        try {
+          const query = 'DELETE FROM vehiculos WHERE id = ? AND id_cuenta = ?'
+          connection.query(query, [id, id_cuenta], (err, res) => {
+              if (err) {
+                 return reject(err)
+              }
+             return resolve(res)
+          })
+        } catch (error) {
+            return res.status(500).json(error)
+            
+        }
+    })
+}

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
-import { postAddCarService, postviewCarService, postviewCarByIdService } from "../Services/sellerServices.js";
+import { postAddCarService, postviewCarService, postviewCarByIdService, postDeleteCarService } from "../Services/sellerServices.js";
 import registerVehicleSchema from '../Schemas/registerVehicleSchema.js';
-
+import idSchema from '../Schemas/idSchema.js';
 export const postAddCarController = async(req, res) => {
     try {
         const token = req.cookies.token
@@ -43,18 +43,47 @@ export const postviewCarController = async(req, res) => {
 }
 
 export const postviewCarByIdController = async(req, res) => {
+        const {id} = req.params  
+        const { error } = idSchema({id})
+    if (error) {
+        return res.status(400).json(error)
+    }
     try {
-        const {id} = req.params
+    
         const data = await postviewCarByIdService(id)
         const result = data[0]
         if(!result){
             return res.status(404).json({Mensaje: 'Vehiculo no encontrado'})
         }
-        
+
         return res.status(200).json(data)
         
     } catch (error) {
         return res.status(500).json(error)
         
+    }
+}
+export const postDeleteCarController = async(req, res) =>{
+    const token = req.cookies.token
+    const {id} = req.params
+    const { error } = idSchema({id})
+    if (error) {
+        return res.status(400).json(error)
+    }
+    try {
+        const decode = jwt.verify(token, 'clave-secreta')
+        const id_cuenta = decode.dataCookie.id
+        const data = await postDeleteCarService(id, id_cuenta)
+
+        if(data.affectedRows === 0){
+            return res.status(404).json({Mensaje: 'Vehiculo no encontrado'})
+        }
+
+        console.log(`${[decode.dataCookie.id, decode.dataCookie.usuario]} ha eliminado el vehiculo ${id} exitosamente`)
+        return res.status(200).json({Mensaje: 'Vehiculo eliminado correctamente'})
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'})
     }
 }
