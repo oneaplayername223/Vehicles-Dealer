@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { postAddCarController } from "../Controllers/sellerControllers.js";
+import { postAddCarController, postviewCarController } from "../Controllers/sellerControllers.js";
 
 
 const sellerRoutes = Router();
 
 
 sellerRoutes.post('/vendedor/agregar/autos', postAddCarController)
-
+sellerRoutes.get('/vendedor/autos', postviewCarController)
 
 export default sellerRoutes

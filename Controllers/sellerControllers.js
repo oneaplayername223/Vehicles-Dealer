@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { postAddCarService } from "../Services/sellerServices.js";
 import registerVehicleSchema from '../Schemas/registerVehicleSchema.js';
+import {postviewCarService} from '../Services/sellerServices.js';
 export const postAddCarController = async(req, res) => {
     try {
         const token = req.cookies.token
@@ -22,5 +23,21 @@ export const postAddCarController = async(req, res) => {
     } catch (error) {
         console.log(error)
         return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'})
+    }
+}
+
+
+export const postviewCarController = async(req, res) => {
+    try {
+        const token = req.cookies.token
+        const decode = jwt.verify(token, 'clave-secreta')
+        const id_cuenta = decode.dataCookie.id
+
+        const data = await postviewCarService(id_cuenta)
+        return res.status(200).json(data)
+        
+    } catch (error) {
+        return res.status(500).json(error)
+        
     }
 }

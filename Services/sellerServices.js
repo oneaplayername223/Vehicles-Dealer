@@ -18,3 +18,21 @@ export const postAddCarService = (marca, modelo, creado, color, categoria, tracc
     })
   
 }
+
+
+export const postviewCarService = (id_cuenta) => {
+    return new Promise((resolve, reject) =>{
+        try {
+          const query = 'SELECT * FROM vehiculos WHERE id_cuenta = ?'
+          connection.query(query, [id_cuenta], (err, res) => {
+              if (err) {
+                 return reject(err)
+              }
+             return resolve(res)
+          })
+        } catch (error) {
+            return res.status(500).json(error)
+            
+        }
+    })
+}
