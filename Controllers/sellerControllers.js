@@ -15,6 +15,7 @@ export const postAddCarController = async(req, res) => {
         }
 
         const data = await postAddCarService(marca, modelo, creado, color, categoria, traccion, pasajeros, descripcion, precio, imagenes, videos, id_cuenta)
+        console.log(`${[decode.dataCookie.id, decode.dataCookie.usuario]} ha añadido el vehiculo ${marca} ${modelo} exitosamente`)
         return res.status(200).json({Mensaje: 'Vehiculo añadido correctamente'})
 
 
