@@ -90,7 +90,7 @@ export const postDeleteCarController = async(req, res) =>{
     }
 }
 
-export const postEditCarController = (req, res) => {
+export const postEditCarController = async (req, res) => {
     //Client request
     const {marca, modelo, creado, color, categoria, traccion, pasajeros, descripcion, precio, imagenes, videos} = req.body
     const {id} = req.params
@@ -107,17 +107,23 @@ export const postEditCarController = (req, res) => {
     }
 
     try {
-    const data = postEditCarService(marca, modelo, creado, color, categoria, traccion, pasajeros, descripcion, precio, imagenes, videos, id, id_cuenta)
-    const result = data[0]
+        const { error } = idSchema({id, id_cuenta})
+    if (error) {
+        return res.status(400).json(error)
+    }
+    const data = await postEditCarService(marca, modelo, creado, color, categoria, traccion, pasajeros, descripcion, precio, imagenes, videos, id, id_cuenta)
+   
 
-    if (data.affectedRows === 0 || data.affectedRows > 1) {
-            return res.status(404).json({Mensaje: 'Vehiculo no encontrado'})
-        }
+    if(data.affectedRows === 1 && data.changedRows === 0){
+        return res.status(404).json({Mensaje: 'Ingresa la informacion nueva'})
+    }
+    if (data.changedRows === 1){
+    console.log(`${[decode.dataCookie.id, decode.dataCookie.usuario]} ha editado el vehiculo ${id} exitosamente`)
+    return res.status(200).json({Mensaje: 'Vehiculo editado correctamente'})
+    }
 
-        console.log(`${[decode.dataCookie.id, decode.dataCookie.usuario]} ha editado el vehiculo ${id} exitosamente`)
-        res.status(200).json({Mensaje: 'Vehiculo editado correctamente'})
 
-
+   
     } catch (error) {
         console.log(error)
         return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'}) 
