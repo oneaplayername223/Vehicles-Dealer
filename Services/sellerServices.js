@@ -36,3 +36,20 @@ export const postviewCarService = (id_cuenta) => {
         }
     })
 }
+
+export const postviewCarByIdService = (id) => {
+    return new Promise((resolve, reject) => {
+        try {
+          const query = 'SELECT * FROM vehiculos WHERE id = ?'
+          connection.query(query, [id], (err, res) => {
+              if (err) {
+                 return reject(err)
+              }
+             return resolve(res)
+          })
+        } catch (error) {
+            return res.status(500).json(error)
+            
+        }
+    })
+}
