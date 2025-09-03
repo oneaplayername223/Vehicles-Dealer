@@ -1,5 +1,6 @@
 import express from 'express'
 import guessRoutes from './Routes/guessRoutes.js'
+import sellerRoutes from './Routes/sellerRoutes.js'
 import cookieparser from 'cookie-parser'
 
 const app = express()
@@ -8,6 +9,7 @@ app.use(express.json())
 app.use(cookieparser())
 
 app.use(guessRoutes)
+app.use(sellerRoutes)
 
 
 app.listen(port, () =>{
