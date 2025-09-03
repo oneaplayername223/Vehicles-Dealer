@@ -98,10 +98,12 @@ export const postLoginController = async (req, res) => {
     }
 
     const comparePassword = bcrypt.compareSync(clave, result.clave)
+    const dataCookie = { id: result.id, usuario: result.usuario, rol: result.rol }
 
     if (comparePassword) {
-    const tokent = jwt.sign({ id: result.id }, 'clave-secreta', { expiresIn: '1h' })
+    const tokent = jwt.sign({ dataCookie }, 'clave-secreta', { expiresIn: '1h' })
     const cookie = res.cookie('token', tokent, { httpOnly: true })
+    
     return res.status(200).json({ message: 'Inicio de sesión exitoso'})
 
 

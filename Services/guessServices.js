@@ -104,7 +104,7 @@ export const registerService = (nombre, apellido, fecha_nacimiento, cedula, corr
 export const postLoginService = (usuario, clave) => {
     return new Promise((resolve, reject) => {
         try {
-            const query = 'SELECT usuario, clave FROM cuentas WHERE usuario = ?'
+            const query = 'SELECT id, usuario, clave, rol FROM cuentas WHERE usuario = ?'
             connection.query(query, [usuario, clave], (err, res) => {
                 if (err) {
                    return reject(err)
