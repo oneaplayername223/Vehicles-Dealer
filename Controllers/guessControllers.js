@@ -1,5 +1,6 @@
-import { getGuessIndexService, getGuessCarService, getDealerIndexService, getDealerService, registerService } from "../Services/guessServices.js";
+import { getGuessIndexService, getGuessCarService, getDealerIndexService, getDealerService, registerService, postLoginService } from "../Services/guessServices.js";
 import registerSchema from "../Schemas/registerSchema.js";
+import loginSchema from "../Schemas/loginSchema.js";
 import bcrypt from 'bcrypt'
 export const getGuessIndexController = async(req, res) => {
 try {
@@ -74,5 +75,39 @@ export const postRegisterController = async(req, res) => {
 
     } catch (error) {
         return res.json(error)
+    }
+}
+
+
+
+export const postLoginController = async (req, res) => {
+    const {usuario, clave} = req.body
+    const {error} = loginSchema({usuario, clave})
+
+    try {
+    if (error) {
+        return res.status(400).json(error)
+    }
+
+    const data = await postLoginService(usuario, clave)
+    const result = data[0]
+
+    if (!result) {
+        return res.status(404).json({ message: 'Usuario no encontrado' })
+    }
+
+    const comparePassword = bcrypt.compareSync(clave, result.clave)
+
+    if (comparePassword) {
+    return res.status(200).json({ message: 'Inicio de sesión exitoso' })
+    
+
+}
+
+    return res.status(401).json({ message: 'Contraseña incorrecta' })
+        
+    } catch (error) {
+        return res.status(500).json(error)
+        
     }
 }
