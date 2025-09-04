@@ -1,7 +1,7 @@
 import { postAddCarService, postviewCarService, postviewCarByIdService, postDeleteCarService, postEditCarService } from "../Services/sellerServices.js";
 import registerVehicleSchema from '../Schemas/registerVehicleSchema.js';
 
-
+// añadir vehiculo
 export const postAddCarController = async(req, res) => {
     const id_cuenta = req.id_cuenta
     try {
@@ -25,7 +25,7 @@ export const postAddCarController = async(req, res) => {
     }
 }
 
-
+// ver vehiculos
 export const postviewCarController = async(req, res) => {
     const id_cuenta = req.id_cuenta
     try {
@@ -40,6 +40,7 @@ return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'})
     }
 }
 
+// ver vehiculo por id
 export const postviewCarByIdController = async(req, res) => {
         const {id} = req.params
  
@@ -60,6 +61,7 @@ export const postviewCarByIdController = async(req, res) => {
         
     }
 }
+// Eliminar vehiculo
 export const postDeleteCarController = async(req, res) =>{
     const {id} = req.params
     const id_cuenta = req.id_cuenta
@@ -81,7 +83,7 @@ export const postDeleteCarController = async(req, res) =>{
 return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'})
     }
 }
-
+// Editar vehiculo
 export const postEditCarController = async (req, res) => {
     //Client request
     const {marca, modelo, creado, color, categoria, traccion, pasajeros, descripcion, precio, imagenes, videos} = req.body
