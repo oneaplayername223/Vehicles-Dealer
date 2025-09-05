@@ -55,7 +55,7 @@ export const postviewCarByIdController = async(req, res, next) => {
         return res.status(200).json(data)
         
     } catch (error) {
-             return next(error)
+    return next(error)
         
     }
 }
@@ -77,8 +77,7 @@ export const postDeleteCarController = async(req, res) =>{
         return res.status(200).json({Mensaje: 'Vehiculo eliminado correctamente'})
         
     } catch (error) {
-        console.log(error)
-return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'})
+      return next(error)
     }
 }
 // Editar vehiculo
