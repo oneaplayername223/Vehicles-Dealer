@@ -1,8 +1,10 @@
 import { postAddCarService, postviewCarService, postviewCarByIdService, postDeleteCarService, postEditCarService } from "../Services/sellerServices.js";
 import registerVehicleSchema from '../Schemas/registerVehicleSchema.js';
 
+
+
 // añadir vehiculo
-export const postAddCarController = async(req, res) => {
+export const postAddCarController = async(req, res, next) => {
     const id_cuenta = req.id_cuenta
     try {
 
@@ -20,13 +22,12 @@ export const postAddCarController = async(req, res) => {
 
 
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'})
+             return next(error)
     }
 }
 
 // ver vehiculos
-export const postviewCarController = async(req, res) => {
+export const postviewCarController = async(req, res, next) => {
     const id_cuenta = req.id_cuenta
     try {
 
@@ -35,17 +36,16 @@ export const postviewCarController = async(req, res) => {
         return res.status(200).json(data)
         
     } catch (error) {
-return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'})
+             return next(error)
         
     }
 }
 
 // ver vehiculo por id
-export const postviewCarByIdController = async(req, res) => {
+export const postviewCarByIdController = async(req, res, next) => {
         const {id} = req.params
  
     try {
-    
         const data = await postviewCarByIdService(id)
         const result = data[0]
         if(!result){
@@ -55,9 +55,7 @@ export const postviewCarByIdController = async(req, res) => {
         return res.status(200).json(data)
         
     } catch (error) {
-                console.log(error)
-
-        return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'})
+             return next(error)
         
     }
 }
@@ -71,7 +69,7 @@ export const postDeleteCarController = async(req, res) =>{
         const affectedRows = data.affectedRows
 
         if (affectedRows === 0 || affectedRows > 1) {
-            return res.status(204).json({Mensaje: 'Vehiculo no encontrado'})
+            return res.status(404).json({Mensaje: 'Vehiculo no encontrado'})
         }     
 
 
@@ -84,23 +82,28 @@ return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'})
     }
 }
 // Editar vehiculo
-export const postEditCarController = async (req, res) => {
+
+export const postEditCarController = async (req, res, next) => {
+    
     //Client request
     const {marca, modelo, creado, color, categoria, traccion, pasajeros, descripcion, precio, imagenes, videos} = req.body
     //Joi validations
     const { error } = registerVehicleSchema({marca, modelo, creado, color, categoria, traccion, pasajeros, descripcion, precio, imagenes, videos})
     //cookies request    
+
     const {id} = req.params
     const id_cuenta = req.id_cuenta
  
 
 
     if (error) {
-        console.log(error)
-        return res.status(400).json({Mensaje: 'Ha habido un error'})
-    }
+    return next(error);
+}
 
     try {
+
+
+
    
     const data = await postEditCarService(marca, modelo, creado, color, categoria, traccion, pasajeros, descripcion, precio, imagenes, videos, id, id_cuenta)
    
@@ -118,8 +121,7 @@ export const postEditCarController = async (req, res) => {
 
    
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({Mensaje: 'Ha habido un error en el servidor'})
+        return next(error)
         
     }
 }
