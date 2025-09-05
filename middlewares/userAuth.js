@@ -13,11 +13,8 @@ export const userAuthorization = (req, res, next) => {
             return res.status(401).json({Mensaje: 'Usuario no autorizado'})
         }
 
-        
-        
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({Mensaje: 'Ha habido un errors'})
+        return res.status(401).json({Mensaje: 'Usuario no autorizado'})
         
     }
 }
