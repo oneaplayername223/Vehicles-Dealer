@@ -4,7 +4,6 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Vehicles-Dealer</title>
 </head>
 <body>
   <h1>Vehicles-Dealer / Car Marketplace API</h1>
@@ -16,13 +15,13 @@
       Vehicles-Dealer is a backend API built with Node.js & Express designed for managing a vehicle marketplace. Dealers can add, view, edit, and delete cars, while guests have access to browse vehicles and dealers, and can register or log in.
     </p>
 
-    <h3>Features</h3>
+<h3>Features</h3>
     <ul>
       <li><strong>Dealers:</strong> Add, view (all or by ID), edit, and delete vehicles.</li>
       <li><strong>Guests:</strong> Browse all cars, view details, browse dealers, and perform user registration and login.</li>
     </ul>
 
-    <h3>Project Structure</h3>
+<h3>Project Structure</h3>
     <pre>
 /Controllers
 /Routes
@@ -33,7 +32,7 @@ server.js
 package.json
     </pre>
 
-    <h3>Dealer Routes (Protected)</h3>
+<h3>Dealer Routes (Protected)</h3>
     <table>
       <thead>
         <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
@@ -47,7 +46,7 @@ package.json
       </tbody>
     </table>
 
-    <h3>Guest Routes</h3>
+<h3>Guest Routes</h3>
     <table>
       <thead>
         <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
@@ -62,7 +61,7 @@ package.json
       </tbody>
     </table>
 
-    <h3>Installation</h3>
+<h3>Installation</h3>
     <pre>
 # Clone repository
 git clone https://github.com/oneaplayername223/Vehicles-Dealer.git
@@ -74,7 +73,7 @@ npm install
 npm run dev
     </pre>
 
-    <h3>Middleware</h3>
+<h3>Middleware</h3>
     <ul>
       <li><code>userAuthorization</code>: Verifies user authentication.</li>
       <li><code>validateId</code>: Validates dealer account ID.</li>
@@ -93,13 +92,13 @@ npm run dev
       Vehicles-Dealer es una API backend desarrollada con Node.js y Express para gestionar un marketplace de vehículos. Los vendedores pueden agregar, ver, editar y eliminar vehículos, mientras que los invitados pueden explorar autos y concesionarios, además de poder registrarse e iniciar sesión.
     </p>
 
-    <h3>Características</h3>
+<h3>Características</h3>
     <ul>
       <li><strong>Vendedores:</strong> Agregar, ver (todos o por ID), editar y eliminar vehículos.</li>
       <li><strong>Invitados:</strong> Explorar todos los autos, ver detalles, explorar concesionarios, registrarse e iniciar sesión.</li>
     </ul>
 
-    <h3>Estructura del Proyecto</h3>
+<h3>Estructura del Proyecto</h3>
     <pre>
 /Controllers
 /Routes
@@ -110,7 +109,7 @@ server.js
 package.json
     </pre>
 
-    <h3>Rutas para Vendedores (Protegidas)</h3>
+<h3>Rutas para Vendedores (Protegidas)</h3>
     <table>
       <thead>
         <tr><th>Método</th><th>Endpoint</th><th>Descripción</th></tr>
@@ -124,7 +123,7 @@ package.json
       </tbody>
     </table>
 
-    <h3>Rutas para Invitados</h3>
+<h3>Rutas para Invitados</h3>
     <table>
       <thead>
         <tr><th>Método</th><th>Endpoint</th><th>Descripción</th></tr>
@@ -139,7 +138,7 @@ package.json
       </tbody>
     </table>
 
-    <h3>Instalación</h3>
+<h3>Instalación</h3>
     <pre>
 # Clona el repositorio
 git clone https://github.com/oneaplayername223/Vehicles-Dealer.git
@@ -151,13 +150,13 @@ npm install
 npm run dev
     </pre>
 
-    <h3>Middlewares</h3>
+<h3>Middlewares</h3>
     <ul>
       <li><code>userAuthorization</code>: Verifica la autenticación del usuario.</li>
       <li><code>validateId</code>: Valida el ID de la cuenta del vendedor.</li>
     </ul>
 
-    <h3>Validación</h3>
+<h3>Validación</h3>
     <p>Los datos del vehículo se validan mediante un esquema Joi ubicado en <code>/Schemas/registerVehicleSchema.js</code>.</p>
   </section>
 </body>
